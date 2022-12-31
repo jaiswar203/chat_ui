@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "..";
 
-const url:string = "http://localhost:4000/chat";
+const url:string = process.env.NODE_ENV==="development" ? "http://localhost:4000/chat" : "http://3.109.182.194/chat"
 
 interface IChat{
     message:string,

@@ -11,9 +11,7 @@ import ChatUI from './ChatUI'
 import { setCurrentChatUser } from '../../../redux/slices/util'
 import { useGetConversationMutation } from '../../../redux/slices/conversation'
 import { usePostChatMutation } from '../../../redux/slices/chat'
-interface AppProps {
 
-}
 
 interface Username {
   username: string
@@ -44,8 +42,9 @@ function UserModel(props) {
   </div>);
 }
 
+const url:string = process.env.NODE_ENV==="development" ? "ws://localhost:4000" : "ws://3.109.182.194"
 
-const Home: NextPage<AppProps> = () => {
+const Home: NextPage = () => {
   const { user, currentChatUser } = useAppSelector(state => state.util)
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -59,7 +58,7 @@ const Home: NextPage<AppProps> = () => {
 
   const [conversation, setConversation] = useState([])
 
-  const socket=useRef(io("ws://localhost:4000"))
+  const socket=useRef(io(url))
 
   async function fetchConversation(){
     if(currentChatUser.data && user){
